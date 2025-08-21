@@ -1,12 +1,15 @@
 <?php
 
-use App\Http\Controllers\ExemploController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/', 'welcome');
 
-Route::get('/exemplo', [ExemploController::class, 'index']);
-Route::get('/products', [ProductController::class, 'index'])->name('products.index' );
+Route::view('dashboard', 'dashboard')
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+
+Route::view('profile', 'profile')
+    ->middleware(['auth'])
+    ->name('profile');
+
+require __DIR__.'/auth.php';
